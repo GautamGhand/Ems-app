@@ -23,7 +23,7 @@ class UserController extends Controller
     public function create()
     {
         return view('users.create', [
-            'role' => Role::where('name','employee')->first()
+            'role' => Role::employee()->first()
         ]);
     }
     public function store(Request $request)
@@ -33,7 +33,7 @@ class UserController extends Controller
             'last_name' => 'required|string|min:3|max:255|alpha',
             'email' => 'required|email:rfc,dns',
             'role_id' => ['required',
-                        Rule::in(Role::employee())
+                        Rule::in(Role::employeeId())
                         ]
         ]);
 
@@ -53,7 +53,7 @@ class UserController extends Controller
     {
         return view('users.edit', [
             'user' => $user,
-            'role'=> Role::where('name','employee')->first()
+            'role'=> Role::employee()->first()
         ]);
     }
     public function update(Request $request, User $user)
@@ -62,7 +62,7 @@ class UserController extends Controller
             'first_name' => 'required|string|min:3|max:255|alpha',
             'last_name' => 'required|string|min:3|max:255|alpha',
             'role_id' => ['required',
-                        Rule::in(Role::where('name','employee')->pluck('id'))
+                        Rule::in(Role::employeeId())
                         ]
         ]);
 

@@ -52,14 +52,14 @@ Route::controller(EmployeeAttendanceController::class)->group(function () {
 
     Route::get('/employees/attendances', 'attendances')->name('employee.attendance.index');
 
-    Route::post('/employees/attendance/{user}', 'store')->name('employee.attendance.store');
+    Route::post('/employees/{user:slug}/attendance', 'store')->name('employee.attendance.store');
 });
 
 Route::controller(EmployeeLeaveController::class)->group(function () {
 
-    Route::get('employees/leave/create', 'create')->name('employee.leave.create');
+    Route::get('employees/leaves/create', 'create')->name('employee.leave.create');
 
-    Route::post('employees/leave/store', 'store')->name('employee.leave.store');
+    Route::post('employees/leaves/store', 'store')->name('employee.leave.store');
 
 });
 
@@ -67,9 +67,9 @@ Route::controller(EmployeeLeaveStatusController::class)->group(function () {
 
     Route::get('/leaves', 'index')->name('employee.leave.index');
 
-    Route::get('/employees/leave/approve/{leave}', 'approved')->name('employee.leave.approve');
+    Route::get('/employees/leaves/{leave}/approve', 'approved')->name('employee.leave.approve');
 
-    Route::get('/employees/leave/reject/{leave}', 'rejected')->name('employee.leave.reject');
+    Route::get('/employees/leaves/{leave}/reject', 'rejected')->name('employee.leave.reject');
 
 });
 

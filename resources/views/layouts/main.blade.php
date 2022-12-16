@@ -15,3 +15,29 @@
 <div>
     @include('layouts.flash-message')
 </div>
+
+<div class="main-body">
+    <div class="side-bar">
+         <ul>
+            @auth
+            @if (!Auth::user()->is_employee)
+            <a href="{{ route('employee.leave.index')  }}" class="btn btn-primary"><li>Leaves</li></a>
+
+            <a href="{{ route('users.create') }}" class="btn btn-primary"><li>Invite User</li></a>
+            @else
+            <a href="{{ route('employee.leave.create') }}" class="btn btn-secondary"><li>Take Leave</li></a>
+
+            <a href="{{ route('employee.attendance.index') }}" class="btn btn-secondary"><li>My Attendance</li></a>
+
+            <li>
+                <form method="POST" action="{{ route('employee.attendance.store', Auth::user()) }}">
+                    @csrf
+                    <input type="submit" name="submit" value="Attendance" class="btn btn-primary attendance">
+                </form>
+            </li>
+            @endif
+            @endauth
+            
+         </ul>
+    </div>
+    <div class="rest-body">

@@ -1,18 +1,9 @@
 @include('layouts.main')
 
 
-<a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
 
-<a href="{{ route('employee.leave.create') }}" class="btn btn-secondary">Take Leave</a>
+<span class="logout"><a href="{{ route('logout') }}" class="btn btn-primary">Logout</a></span>
 
-<a href="{{ route('employee.attendance.index') }}" class="btn btn-secondary">My Attendance</a>
-
-<section>
-<form method="POST" action="{{ route('employee.attendance.store', Auth::user()) }}">
-    @csrf
-    <input type="submit" name="submit" value="Attendance">
-</form>
-</section>
 
 
 <h1>My Leaves</h1>

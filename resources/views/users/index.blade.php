@@ -1,10 +1,6 @@
 @include('layouts.main')
 
-<a href="{{ route('logout') }}" class="btn btn-primary" id="logout">Logout</a>
-
-<a href="{{ route('employee.leave.index')  }}" class="btn btn-primary">Leaves</a>
-
-<a href="{{ route('users.create') }}" class="btn btn-primary">Invite User</a>
+<span class="logout"><a href="{{ route('logout') }}" class="btn btn-primary" id="logout">Logout</a></span>
 
 <table class="table table-striped">
     <th>Id</th>
@@ -46,5 +42,7 @@
     </tr>
 @endforeach
 </table>
+</div>
+</div>
 </body>
 </html>

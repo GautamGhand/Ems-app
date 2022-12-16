@@ -16,8 +16,12 @@ class Role extends Model
         'name'
     ];
 
-    public function scopeEmployee($query)
+    public function scopeEmployeeId($query)
     {
         return $query->where('name', 'employee')->pluck('id');
+    }
+    public function scopeEmployee($query)
+    {
+        return $query->where('name', 'employee');
     }
 }

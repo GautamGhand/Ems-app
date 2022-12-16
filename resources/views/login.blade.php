@@ -2,14 +2,14 @@
 
 
 <section>
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="login-form">
         @csrf
-        <label>Email</label>
-        <input type="email" name="email">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control">
         <x-error name="email"/>
-        <label>Password</label>
-        <input type="password" name="password">
+        <label class="form-label">Password</label>
+        <input type="password" name="password"  class="form-control mb-3">
         <x-error name="password"/>
-        <input type="submit" name="submit" value="Login">
+        <input type="submit" name="submit" value="Login" class="btn btn-primary">
     </form>
 </section>

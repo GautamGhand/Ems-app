@@ -5,11 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Leave;
 use App\Models\User;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use PDO;
 
 class EmployeeAttendanceController extends Controller
 {

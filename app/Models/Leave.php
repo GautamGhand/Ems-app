@@ -10,6 +10,9 @@ class Leave extends Model
 {
     use HasFactory;
 
+    const APPROVED = 'approved';
+    const REJECTED = 'rejected';
+    const PENDING = 'pending';
     protected $fillable = [
         'subject',
         'description',

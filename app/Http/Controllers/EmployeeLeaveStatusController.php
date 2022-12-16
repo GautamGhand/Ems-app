@@ -23,13 +23,13 @@ class EmployeeLeaveStatusController extends Controller
     public function approved(Leave $leave)
     {
         $leave->update([
-            'status' => 'approved'
+            'status' => Leave::APPROVED
         ]);
 
         Attendance::create([
             'user_id' => $leave->user_id,
             'attendance_date' => $leave->leave_dates,
-            'status' => 'leave'
+            'status' => Attendance::LEAVE
         ]);
 
         $user = User::find($leave->user_id);
@@ -42,7 +42,7 @@ class EmployeeLeaveStatusController extends Controller
     public function rejected(Leave $leave)
     {
         $leave->update([
-            'status' => 'rejected'
+            'status' => Leave::REJECTED
         ]);
 
         $user = User::find($leave->user_id);

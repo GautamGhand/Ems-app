@@ -25,10 +25,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    if(Auth::check())
-    {
-        if(Auth::user()->is_employee)
-        {
+    if (Auth::check()) {
+        if (Auth::user()->is_employee) {
             return redirect()->route('employee');
         }
         return redirect()->route('users.index');
@@ -45,6 +43,8 @@ Route::controller(LoginController::class)->group(function () {
     
     Route::get('/logout', 'logout')->name('logout');
 });
+
+Route::middleware('auth')->group(function () {
 
 Route::controller(EmployeeAttendanceController::class)->group(function () {
 
@@ -90,6 +90,7 @@ Route::controller(UserController::class)->group(function()
 
 Route::post('users/{user}/active', [UserStatusController::class, 'status'])->name('users.active');
 
+});
 
 Route::get('/set-password/{user:slug}', [PasswordSetController::class, 'index'])->name('setpassword.index');
 

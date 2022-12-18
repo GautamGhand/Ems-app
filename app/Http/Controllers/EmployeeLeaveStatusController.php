@@ -27,14 +27,14 @@ class EmployeeLeaveStatusController extends Controller
         ]);
 
         Attendance::create([
-            'user_id' => $leave->user_id,
+            'user_id' => $leave->user->id,
             'attendance_date' => $leave->leave_dates,
             'status' => Attendance::LEAVE
         ]);
 
-        $user = User::find($leave->user_id);
+        $user = User::find($leave->user->id);
 
-        Notification::Send($user, new EmployeeLeaveApprovedNotification());
+        Notification::Send($user, new EmployeeLeaveApprovedNotification($leave->leave_dates));
 
         return back()->with('success', 'Leave Approved Successfully');
 
@@ -45,9 +45,9 @@ class EmployeeLeaveStatusController extends Controller
             'status' => Leave::REJECTED
         ]);
 
-        $user = User::find($leave->user_id);
+        $user = User::find($leave->user->id);
 
-        Notification::Send($user, new EmployeeLeaveRejectedNotification());
+        Notification::Send($user, new EmployeeLeaveRejectedNotification($leave->leave_dates));
 
         return back()->with('success', 'Leave Rejected Successfully');
     }

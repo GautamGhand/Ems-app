@@ -16,9 +16,10 @@ class EmployeeLeaveRejectedNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public $date;
+    public function __construct($date)
     {
-        //
+        $this->date=$date;
     }
 
     /**
@@ -45,7 +46,7 @@ class EmployeeLeaveRejectedNotification extends Notification
                 ->greeting('Welcome'.$notifiable->first_name)
                 ->line('subject'.$notifiable->subject)
                 ->line('description'.$notifiable->description)
-                ->line('Your Leave Has Been Rejected for '.$notifiable->leave_date.' '.$notifiable->first_name)
+                ->line('Your Leave Has Been Rejected for '.$this->date)
                 ->line('Thank you for using our application!');
     }
 

@@ -73,6 +73,10 @@ class User extends Authenticatable
     {
         return $this->email_status == true;
     }
+    public function getIsActiveAttribute()
+    {
+        return $this->status == true;
+    }
 
     public function attendances()
     {

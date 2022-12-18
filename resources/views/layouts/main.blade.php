@@ -36,8 +36,7 @@
                 </form>
             </li>
             @endif
-            @endauth
-            
+            @endauth   
          </ul>
     </div>
     <div class="rest-body">

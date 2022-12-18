@@ -5,7 +5,6 @@
 <span class="logout"><a href="{{ route('logout') }}" class="btn btn-primary">Logout</a></span>
 
 
-
 <h1>My Leaves</h1>
 <section>
     <table class="table table-striped">

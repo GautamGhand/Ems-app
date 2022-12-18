@@ -16,9 +16,10 @@ class EmployeeLeaveApprovedNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public $date;
+    public function __construct($date)
     {
-        //
+        $this->date=$date;
     }
 
     /**
@@ -43,7 +44,7 @@ class EmployeeLeaveApprovedNotification extends Notification
         return (new MailMessage)
                     ->subject('Leave Approved Notification')
                     ->greeting('Welcome'.$notifiable->first_name)
-                    ->line('Your Leave Has Been Approved'.$notifiable->first_name)
+                    ->line('Your Leave Has Been Approved for '.$this->date)
                     ->line('Thank you for using our application!');
     }
 

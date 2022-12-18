@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Leave;
 use App\Models\User;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeAttendanceController extends Controller
 {
@@ -27,31 +30,43 @@ class EmployeeAttendanceController extends Controller
 
     public function store(User $user)
     {
-
+        if (Attendance::latestpresentdate()->first()) {
+            $last_attendance = Attendance::latestpresentdate()->first()->attendance_date;
+            if (Attendance::latestleavedate()->first()) {
+                if (Attendance::latestleavedate()->first()->attendance_date > Attendance::latestpresentdate()->first()->attendance_date) {
+                    $last_attendance = Attendance::latestleavedate()->first()->attendance_date;
+                }
+            }
+            $previous = Carbon::parse($last_attendance);
+            $latest = Carbon::parse(now()->toDateString());
+            $days = $latest->diffInDays($previous);
+        } 
+        else {
+            $days = 0;
+        }
+    
+    
         if ($user->attendances()
-            ->todayattendancedate()
-            ->first()) {
+                ->todayattendancedate()
+                ->first()) {
             return back()->with('error', 'Your Attendance has been done for today');
+        } 
+        elseif ($days > 1) {
+            for ($i = 1; $i < $days; $i++) {
+                $date = date_modify(now(), '-' . $i . 'day');
+                    Attendance::create([
+                        'user_id' => Auth::id(),
+                        'status' => Attendance::ABSENT,
+                        'attendance_date' => $date
+                    ]);
+            }
         }
-        elseif ($user->attendances()->AbsentDate()->first()) {
-            $user->attendances()
-                ->AbsentDate()
-                ->first()
-                ->update([
-                'status' => Attendance::PRESENT,
-            ]);
-
-            return back()->with('success', 'Your Attendance has marked Successfully');
-        }
-        else
-        {
-            Attendance::create([
-                'user_id' => Auth::id(),
-                'status' => Attendance::PRESENT,
-                'attendance_date' => now()->toDateString()
-            ]);
-            return back()->with('success', 'Your Attendance has marked Successfully');
-        }
-
+        Attendance::create([
+            'user_id' => Auth::id(),
+            'status' => Attendance::PRESENT,
+            'attendance_date' => now()->toDateString()
+        ]);
+        return back()->with('success', 'Your Attendance has marked Successfully');
     }
 }
+

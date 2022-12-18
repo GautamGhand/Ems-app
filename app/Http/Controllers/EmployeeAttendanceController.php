@@ -30,17 +30,12 @@ class EmployeeAttendanceController extends Controller
 
     public function store(User $user)
     {
-        if (Attendance::latestpresentdate()->first()) {
-            $last_attendance = Attendance::latestpresentdate()->first()->attendance_date;
-            if (Attendance::latestleavedate()->first()) {
-                if (Attendance::latestleavedate()->first()->attendance_date > Attendance::latestpresentdate()->first()->attendance_date) {
-                    $last_attendance = Attendance::latestleavedate()->first()->attendance_date;
-                }
-            }
+        if(Attendance::latestattendancedate()->first()) {
+            $last_attendance = Attendance::latestattendancedate()->first()->attendance_date;
             $previous = Carbon::parse($last_attendance);
             $latest = Carbon::parse(now()->toDateString());
             $days = $latest->diffInDays($previous);
-        } 
+        }
         else {
             $days = 0;
         }

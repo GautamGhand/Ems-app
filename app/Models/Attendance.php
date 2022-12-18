@@ -39,16 +39,9 @@ class Attendance extends Model
         return $query->where('user_id', Auth::id());
     }
 
-    public function scopeLatestPresentDate($query)
+    public function scopelatestattendancedate($query)
     {
         return $query->where('user_id', Auth::id())
-            ->where('status', 'present')
-            ->orderBy('attendance_date', 'desc');
-    }
-    public function scopeLatestLeaveDate($query)
-    {
-        return $query->where('user_id', Auth::id())
-            ->where('status', 'leave')
             ->orderBy('attendance_date', 'desc');
     }
     

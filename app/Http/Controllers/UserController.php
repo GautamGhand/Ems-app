@@ -31,7 +31,7 @@ class UserController extends Controller
         $attributes = $request->validate([
             'first_name' => 'required|string|min:3|max:255|alpha',
             'last_name' => 'required|string|min:3|max:255|alpha',
-            'email' => 'required|email:rfc,dns',
+            'email' => 'required|email:rfc,dns|unique:users',
             'role_id' => ['required',
                         Rule::in(Role::employeeId())
                         ]

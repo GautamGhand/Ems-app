@@ -53,6 +53,9 @@ Route::controller(EmployeeAttendanceController::class)->group(function () {
     Route::get('/employees/attendances', 'attendances')->name('employee.attendance.index');
 
     Route::post('/employees/{user:slug}/attendance', 'store')->name('employee.attendance.store');
+
+    Route::get('/users/{user:slug}/attendances', 'attendance')->name('users.attendances');
+
 });
 
 Route::controller(EmployeeLeaveController::class)->group(function () {
@@ -86,6 +89,7 @@ Route::controller(UserController::class)->group(function()
     Route::post('/users/{user}/update', 'update')->name('users.update');
 
     Route::delete('/users/{user}delete', 'delete')->name('users.delete');
+
 });
 
 Route::post('users/{user}/active', [UserStatusController::class, 'status'])->name('users.active');

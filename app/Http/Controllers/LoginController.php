@@ -20,17 +20,15 @@ class LoginController extends Controller
                 'password'=> 'required'
         ]);
 
-        $user = User::where('email', $request->email)->first(); 
-
-        if ($user) {
-            if ($user->is_emailactive && $user->is_active) {
-                if (Auth::attempt($credentials)) {
-                    return redirect('/');
-                }
-                return back()->with('error', 'Incorrect Details');
+        if (Auth::attempt($credentials)) {
+            if(Auth::user()->is_emailactive && Auth::user()->is_active) {
+                return redirect('/');
             }
+            Auth::logout();
+            return back()->with('error', 'User Is Not Active');
         }
-        return back()->with('error', 'User Not Found');  
+
+        return back()->with('error', 'Incorrect Details');
     }
     public function logout()
     {

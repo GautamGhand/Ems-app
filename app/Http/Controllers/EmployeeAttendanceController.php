@@ -40,10 +40,10 @@ class EmployeeAttendanceController extends Controller
             $days = 0;
         }
     
-    
         if ($user->attendances()
                 ->todayattendancedate()
                 ->first()) {
+
             return back()->with('error', 'Your Attendance has been done for today');
         } 
         elseif ($days > 1) {
@@ -62,6 +62,12 @@ class EmployeeAttendanceController extends Controller
             'attendance_date' => now()->toDateString()
         ]);
         return back()->with('success', 'Your Attendance has marked Successfully');
+    }
+    public function attendance(User $user)
+    {
+        return view('users.attendances',[
+            'attendances' => $user->attendances()->get()
+        ]);
     }
 }
 

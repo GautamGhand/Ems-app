@@ -10,6 +10,7 @@
     <th>Edit</th>
     <th>Delete</th>
     <th>Status</th>
+    <th>Attendance</th>
 @foreach($users as $user)
     @if($user->is_admin)
         @continue
@@ -33,11 +34,14 @@
                     @csrf
                     <i class="bi bi-radioactive"></i>
                     @if ($user->status == true)
-                        <input type="submit" value="DEACTIVATE" name="submit" class="delete">
+                        <input type="submit" value="DEACTIVATE" name="submit" class="btn btn-info">
                     @else
-                         <input type="submit" value="ACTIVATE" name="submit" class="delete">
+                         <input type="submit" value="ACTIVATE" name="submit" class="btn btn-dark">
                     @endif
                 </form>
+        </td>
+        <td>
+            <a href="{{ route('users.attendances', $user)  }}" class="btn btn-secondary">Show Attendance</a>
         </td>
     </tr>
 @endforeach
